@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import TechniciansScreen from './components/TechniciansScreen';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <TechniciansScreen />
   </React.StrictMode>,
   document.getElementById('root')
 );
