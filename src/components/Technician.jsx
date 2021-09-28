@@ -1,11 +1,13 @@
 import React from 'react'
 
-const Technician = () => {
+const Technician = ({nombre, apellido,telefono, especializaciones}) => {
     return (
         <div>
-            Technician
+            <span>{nombre + ' ' + apellido}</span>
+            <span>{telefono}</span>
+            <span>{especializaciones.toString()}</span>
         </div>
     )
 }
 
-export default Technician
+export default Technician;
