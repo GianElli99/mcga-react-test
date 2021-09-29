@@ -1,14 +1,24 @@
-import React from 'react'
-import TechnicianForm from './TechnicianForm'
-import TechnicianList from './TechnicianList'
+import React, { useState } from 'react';
+import TechnicianForm from './TechnicianForm';
+import TechnicianList from './TechnicianList';
+import techniciansData from '../mocks/technicians.json';
 
 const TechniciansScreen = () => {
-  return (
-  <>    
-    <TechnicianForm/>
-    <TechnicianList/>
-  </>
-  )
-}
+  const [technicians, setTechnicias] = useState(techniciansData);
 
-export default TechniciansScreen
+  const deleteTechnician = (id) => {
+    setTechnicias(technicians.filter((technician) => technician._id !== id));
+  };
+  const addTechnician = (technician) => {
+    setTechnicias([technician, ...technicians]);
+  };
+
+  return (
+    <>
+      <TechnicianForm onAdd={addTechnician} />
+      <TechnicianList technicians={technicians} onDelete={deleteTechnician} />
+    </>
+  );
+};
+
+export default TechniciansScreen;
