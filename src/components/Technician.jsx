@@ -1,5 +1,6 @@
 import React from 'react';
-import { FcEmptyTrash as DeleteIcon } from 'react-icons/fc';
+import { MdDeleteForever as DeleteIcon } from 'react-icons/md';
+import { MdEdit as EditIcon } from 'react-icons/md';
 
 const technicianStyle = { display: 'flex', justifyContent: 'space-evenly' };
 
@@ -10,6 +11,7 @@ const Technician = ({
   phone,
   specializations,
   onDelete,
+  onModify,
 }) => {
   return (
     <div style={technicianStyle}>
@@ -25,10 +27,23 @@ const Technician = ({
         <span>Specializations</span>
         <span>{specializations.toString()}</span>
       </div>
+      <EditIcon
+        style={{
+          height: '2rem',
+          width: '2rem',
+          cursor: 'pointer',
+        }}
+        onClick={() => onModify(id)}
+      />
       <DeleteIcon
-        style={{ cursor: 'pointer' }}
+        style={{
+          height: '2rem',
+          width: '2rem',
+          cursor: 'pointer',
+          color: '#FF0000',
+        }}
         onClick={() => onDelete(id)}
-      ></DeleteIcon>
+      />
     </div>
   );
 };

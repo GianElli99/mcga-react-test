@@ -1,7 +1,7 @@
 import React from 'react';
 import Technician from './Technician';
 
-const TechnicianList = ({ technicians, onDelete }) => {
+const TechnicianList = ({ technicians, onDelete, onModify }) => {
   return (
     <>
       {technicians.map((technician, i) => (
@@ -13,6 +13,7 @@ const TechnicianList = ({ technicians, onDelete }) => {
           phone={technician.telefono}
           specializations={technician.especializaciones}
           onDelete={onDelete}
+          onModify={onModify}
         />
       ))}
     </>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from '../hooks/useForm';
 
 const initialState = {
@@ -9,26 +9,29 @@ const initialState = {
   direccion: '',
 };
 
-const TechnicianForm = ({ onAdd }) => {
-  const [values, handleInputChange, resetValues] = useForm(initialState);
+const TechnicianForm = ({ onSubmit, mode, technicianToModify }) => {
+  const [values, handleInputChange, resetValues, setAllValues] =
+    useForm(initialState);
   const [specializations, setSpecializations] = useState([]);
+
+  useEffect(() => {
+    if (mode === 'Modify') {
+      setAllValues(technicianToModify);
+      setSpecializations(technicianToModify.especializaciones);
+    }
+  }, [technicianToModify, mode]);
 
   const handleSpecializationChange = ({ target }) => {
     if (target.checked && specializations.indexOf(target.value) === -1) {
-      console.log(specializations);
-      console.log(target.value);
       setSpecializations([...specializations, target.value]);
       return;
     }
     if (!target.checked) {
-      console.log(specializations);
-      console.log(target.value);
-
       setSpecializations(specializations.filter((x) => x !== target.value));
     }
   };
 
-  const onSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (
@@ -40,8 +43,9 @@ const TechnicianForm = ({ onAdd }) => {
     ) {
       return;
     }
-    onAdd({ ...values, especializaciones: specializations });
+    onSubmit({ ...values, especializaciones: specializations });
     resetValues();
+    setSpecializations([]);
   };
 
   return (
@@ -92,7 +96,7 @@ const TechnicianForm = ({ onAdd }) => {
           name="a"
           id="a"
           value="A"
-          checked={specializations.find((x) => x === 'A')}
+          checked={!!specializations.find((x) => x === 'A')}
           onChange={handleSpecializationChange}
         />
         A
@@ -103,7 +107,7 @@ const TechnicianForm = ({ onAdd }) => {
           name="b"
           id="b"
           value="B"
-          checked={specializations.find((x) => x === 'B')}
+          checked={!!specializations.find((x) => x === 'B')}
           onChange={handleSpecializationChange}
         />
         B
@@ -114,7 +118,7 @@ const TechnicianForm = ({ onAdd }) => {
           name="c"
           id="c"
           value="C"
-          checked={specializations.find((x) => x === 'C')}
+          checked={!!specializations.find((x) => x === 'C')}
           onChange={handleSpecializationChange}
         />
         C
@@ -125,14 +129,14 @@ const TechnicianForm = ({ onAdd }) => {
           name="d"
           id="d"
           value="D"
-          checked={specializations.find((x) => x === 'D')}
+          checked={!!specializations.find((x) => x === 'D')}
           onChange={handleSpecializationChange}
         />
         D
       </label>
 
-      <button type="submit" onClick={onSubmit}>
-        Add Technician
+      <button type="submit" onClick={handleSubmit}>
+        {mode} Technician
       </button>
     </form>
   );
